@@ -1,2 +1,16 @@
-# dooribeonProject
-project for 2023-1 Open source
+# DooriBeonProject: Crosswalk Monitoring System
+
+## Introduction:
+
+*DooriBeonProject* is an open source project that monitors crosswalks for vehicles that violate traffic laws. The purpose of our system is to detect vehicles that violate traffic regulations, obtain an image of those vehicles, and recognize their license plates. From a picture of a vehicle, if it is possible to recognize at least four characters (including four), we would like to save the pictures and save the recognized result (in text form) into a separate folder for each car, bus, and truck. The primary objective of our program is to detect vehicles that violate traffic rules and to report them to the appropriate authorities without causing confusion or prolonging the process. 
+
+##### There are three different programs used in the development of the project:
+
+- **mainFile.py:**
+    It is the main file for getting the data (video), contains the **Yolo** model, counts each object based on its class (bus, car, pedestrian), calls **sort.py** for object tracking, gives each object a unique ID, and sets the traffic rules.  It also checks if some vechiles do violation or not, calls **ANPR.py** file for licence plate recognition, depends on the result of **ANPR.py.** Additionally, the main code is responsible for creating a unique folder for each vehicle violating the car and saving the pictures of the vehicles (the pictures are saved in each frame if **ANPR.py** returns True. Please review the ANPR.py section for more information).The main program uses several improtant libraries and importanant object detection model such as **Numpy**, **Ultralytics**, **YoloV8**, **OpenCv**  and **math** to make the program works more efficient and properly. licence plate number should also be saved to a text file as a text file. ***Sercan YESILKOY*** is responsible for developing and maintaining the main file in this project 
+
+- **sort.py:**
+sort.py is the tracking algorithm to track each object in the given video. The sort.py file contains several libraries, including **Numpy**, **Matplotlib**, **KalmanFilter**, and more. This is a well-designed/well-developed tracking algorithm developed by Alex Bewley. Please refer to [click here](https://github.com/abewley/sort/tree/master) for more information.
+
+- **ANPR.py:**:
+**AMPR.py** has been developed to recognize a license plate on a car based on given image coppied from **mainFile.py**. The file containt several important libraries for image-processing and optical character recognition(OCR) such as  **Numpy**, **Matplotlib** and **pytesseract**. Basicly **Numpy** and **Matplotlib**. By using these libraries, we can perform image-processing operations such as eliminating possible rectangle candidates that have a high probability of being a licence plate. Furthermore, the program performs some mathematical operations so that the rectangle can be rotated and resized to make a clear image of the licence plate, so that our optical character recognition algorithm(which is **pytesseract**) can read the text in the image without a lot of confusion/mistakes. The program **mainFile.py** calls this program, so if a successful recognition is made with a minimum of four characters or more, it will return a true statement and also a result of recognition (which is string) to the main program, so that the main program can then use the text for saving and naming purposes when it saves the file. In conclusion, this program performs a lot of work to recognize the vehicle's license plate from its picture and returns the recognition results to the main program.
